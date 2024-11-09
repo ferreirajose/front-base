@@ -1,0 +1,133 @@
+<!--
+<div class="surface-card p-4 shadow-2 border-round">
+  <div class="text-3xl font-medium text-900 mb-3">Gerenciar Publicação  </div>
+
+</div> -->
+
+<div class="grid">
+  <div class="col-12">
+    <div class="card px-6 py-6">
+      <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+          <div class="my-2">
+            <button pButton pRipple label="Aprovar" icon="pi pi-plus" class="p-button-success mr-2"></button>
+            <button pButton pRipple label="Reprovar" icon="pi pi-trash" class="p-button-danger"></button>
+          </div>
+        </ng-template>
+
+        <ng-template pTemplate="right">
+          <button pButton pRipple label="Filtro" icon="pi pi-filter" class="p-button-secondary mr-2" (click)="toggleFiltro()" aria-label="Exibir filtros"></button>
+          <button pButton pRipple label="Incluir Ato" icon="pi pi-plus" class="p-button-primary"></button>
+        </ng-template>
+      </p-toolbar>
+
+      <ng-container *ngIf="show">
+
+        <div class="card">
+          <h5>Filtrar Dados</h5>
+          <form [formGroup]="filterForm">
+              <div class="grid p-fluid">
+                  <!-- Primeira Linha de Campos -->
+                  <div class="col-12 md:col-3">
+                    <div class="field">
+                      <label for="codigo">Código</label>
+                      <p-inputNumber inputId="codigo" formControlName="codigo"></p-inputNumber>
+                    </div>
+                  </div>
+                  <div class="col-12 md:col-3">
+                    <div class="field">
+                      <label for="atos">Atos</label>
+                      <p-multiSelect inputId="atos" [options]="atosOptions" formControlName="atos" optionLabel="name"></p-multiSelect>
+                    </div>
+                  </div>
+                  <div class="col-12 md:col-3">
+                    <div class="field">
+                      <label for="dataPublicacao">Data de Publicação</label>
+                      <p-calendar inputId="dataPublicacao" formControlName="dataPublicacao" [showIcon]="true"></p-calendar>
+                    </div>
+                  </div>
+                  <div class="col-12 md:col-3">
+                    <div class="field">
+                      <label for="situacao">Situação</label>
+                      <p-dropdown inputId="situacao" [options]="situacaoOptions" formControlName="situacao"></p-dropdown>
+                    </div>
+                  </div>
+
+                  <!-- Segunda Linha de Campos -->
+                  <div class="col-12 md:col-3">
+                    <div class="field">
+                      <label for="usuarioOuMatricula">Usuário ou Matrícula</label>
+                      <input type="text" id="usuarioOuMatricula" formControlName="usuarioOuMatricula" pInputText>
+                    </div>
+                  </div>
+                  <div class="col-12 md:col-3">
+                    <div class="field">
+                      <label for="dataRecebimento">Data de Recebimento</label>
+                      <p-calendar inputId="dataRecebimento" formControlName="dataRecebimento" [showIcon]="true"></p-calendar>
+                    </div>
+                  </div>
+                  <div class="col-12 md:col-3">
+                    <div class="field">
+                      <label for="tipoEdicao">Tipo de Edição</label>
+                      <p-dropdown inputId="tipoEdicao" [options]="tipoEdicaoOptions" formControlName="tipoEdicao"></p-dropdown>
+                    </div>
+                  </div>
+                  <div class="col-12 md:col-3" style="display: flex; gap: 10px; align-items: center;">
+                    <button pButton type="button" label="Filtrar" icon="pi pi-search" (click)="onFilter()"></button>
+                    <button pButton type="button" label="Limpar" icon="pi pi-times" class="p-button-secondary" (click)="onClear()"></button>
+                  </div>
+              </div>
+          </form>
+      </div>
+
+
+
+      </ng-container>
+
+      <p-table
+    [value]="publicacoes"
+    dataKey="codigoPublicacao"
+    [paginator]="true"
+    [rows]="10"
+    [tableStyle]="{'min-width': '70rem'}">
+
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width: 4rem">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="codigoPublicacao">Cod. Publicação <p-sortIcon field="codigoPublicacao"></p-sortIcon></th>
+            <th pSortableColumn="usuario">Usuário <p-sortIcon field="usuario"></p-sortIcon></th>
+            <th pSortableColumn="ato">Ato <p-sortIcon field="ato"></p-sortIcon></th>
+            <th pSortableColumn="dataRecebimento">Data de Recebimento <p-sortIcon field="dataRecebimento"></p-sortIcon></th>
+            <th pSortableColumn="dataPublicacao">Data de Publicação <p-sortIcon field="dataPublicacao"></p-sortIcon></th>
+            <th pSortableColumn="situacao">Situação <p-sortIcon field="situacao"></p-sortIcon></th>
+            <th>Ações</th>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-publicacao>
+        <tr>
+            <td>
+                <p-tableCheckbox [value]="publicacao"></p-tableCheckbox>
+            </td>
+            <td>{{ publicacao.codigoPublicacao }}</td>
+            <td>{{ publicacao.usuario }}</td>
+            <td>{{ publicacao.ato }}</td>
+            <td>{{ publicacao.dataRecebimento | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ publicacao.dataPublicacao | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ publicacao.situacao }}</td>
+            <td>
+                <button pButton icon="pi pi-eye" class="p-button-text p-button-sm" (click)="onVisualizar(publicacao)"></button>
+                <button pButton icon="pi pi-trash" class="p-button-text p-button-sm" (click)="onRemover(publicacao)"></button>
+                <button pButton icon="pi pi-clock" class="p-button-text p-button-sm" (click)="onRelogio(publicacao)"></button>
+            </td>
+        </tr>
+    </ng-template>
+
+</p-table>
+
+
+    </div>
+  </div>
+</div>

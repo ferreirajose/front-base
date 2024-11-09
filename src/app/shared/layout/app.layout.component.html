@@ -1,0 +1,33 @@
+<!-- Barra de Acessibilidade -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+      <div class="navbar-nav me-auto">
+          <a class="nav-link" href="#">Ir para Menu</a>
+          <a class="nav-link" href="#">Conteúdo</a>
+          <a class="nav-link" href="#">Acessibilidade</a>
+      </div>
+      <div class="navbar-nav ms-auto font-control-icons">
+          <i class="bi bi-fonts" onclick="aumentarFonte()">A+</i>
+          <i class="bi bi-fonts" onclick="diminuirFonte()">A-</i>
+          <i class="bi bi-fonts" onclick="fontePadrao()">A</i>
+          <span class="dark-mode-icon" onclick="alternarModoEscuro()">
+              <i class="bi bi-moon"></i>
+          </span>
+      </div>
+  </div>
+</nav>
+
+<div class="layout-wrapper" [ngClass]="containerClass">
+    <app-topbar></app-topbar>
+    <div class="layout-sidebar">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="layout-main-container">
+        <div class="layout-main">
+            <router-outlet></router-outlet>
+        </div>
+        <app-footer></app-footer>
+    </div>
+    <app-config></app-config>
+    <div class="layout-mask"></div>
+</div>

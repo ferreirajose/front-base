@@ -1,0 +1,55 @@
+<div class="layout-topbar">
+    <a class="layout-topbar-logo" routerLink="">
+        <!-- <img src="assets/layout/images/{{layoutService.config().colorScheme === 'light' ? 'logo-dark' : 'logo-white'}}.svg" alt="logo"> -->
+        <img src="assets/imgs/logo-tce.png" alt="logo">
+    </a>
+
+    <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()">
+        <i class="pi pi-bars"></i>
+    </button>
+<!--
+    <button #topbarmenubutton class="p-link layout-topbar-menu-button layout-topbar-button" (click)="layoutService.showProfileSidebar()">
+        <i class="pi pi-ellipsis-v"></i>
+    </button> -->
+
+    <!-- <div #topbarmenu class="layout-topbar-menu" [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
+
+      <button class="p-link layout-topbar-button">
+        <i class="pi pi-bell text-3xl" pBadge value="2"></i>
+      </button>
+
+      <button class="p-link layout-topbar-button"
+      (onClick)="menu.toggle($event)">
+        <p-chip
+          styleClass="mr-2"
+          label="Eva Green"
+          image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+          alt="Avatar image" />
+      </button>
+
+      <p-menu #menu [model]="itemsUser" [popup]="true" />
+
+
+    </div> -->
+
+    <nav id="dropdown-menu-user">
+      <div class="menu-toggle">
+        <i class="pi pi-bell text-3xl" pBadge value="2"></i>
+      </div>
+      <div #profile class="profile">
+        <div class="user">
+          <h3>José Ferreira da Silva</h3>
+          <p>GDSI</p>
+        </div>
+        <div class="img-box">
+          <img src="https://i.postimg.cc/BvNYhMHS/user-img.jpg" alt="some user image">
+        </div>
+      </div>
+      <div #menu class="menu">
+        <ul>
+          <li><a href="#" (click)="logout()"><i class="pi pi-sign-out"></i>&nbsp;Sair</a></li>
+        </ul>
+      </div>
+    </nav>
+
+  </div>
