@@ -11,6 +11,7 @@ import { registerLocaleData } from '@angular/common';
 import { initializer } from './utils/keycloak-init';
 import { AppLayoutModule } from '@shared/layout/app.layout.module';
 import { NotfoundComponent } from '@shared/pages/notfound/notfound.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 registerLocaleData(localePt);
 
@@ -21,6 +22,7 @@ registerLocaleData(localePt);
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     SharedModule,
     KeycloakAngularModule,
