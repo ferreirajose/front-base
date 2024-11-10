@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { KeycloakEventType, KeycloakService } from 'keycloak-angular';
+import { UserService } from '@core/user.service';
 import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
@@ -9,42 +9,21 @@ import { PrimeNGConfig } from 'primeng/api';
 })
 export class AppComponent {
   constructor(
-    private keycloakService: KeycloakService,
+    private userService: UserService,
     private primengConfig: PrimeNGConfig
   ) { }
 
-    async ngOnInit() {
-        this.primengConfig.ripple = true;
 
-        if (!this.keycloakService.isLoggedIn()) {
-          await this.keycloakService.login();
-          return;
-        }
+  async ngOnInit() {
+    this.primengConfig.ripple = true;
 
-        this.updateToken();
-    }
+    // Realiza o login usando o serviço de usuário
+    await this.userService.login();
 
-
-  private updateToken() {
-    this.keycloakService.keycloakEvents$.subscribe({
-      next: (event) => {
-        if (event.type == KeycloakEventType.OnTokenExpired) {
-          this.keycloakService.updateToken(30).catch((erro) => {
-            console.error('Falha ao renovar o token', erro)
-            this.keycloakLogout();
-          });
-        }
-      }
+    // Subscreve ao evento de expiração do token
+    this.userService.tokenExpiredObservable.subscribe(() => {
+      console.warn('Token expirado, deslogando...');
     });
-  }
-
-  private keycloakLogout(): void {
-    let redirectUri = location.origin;
-    if (location.pathname) {
-      redirectUri += location.pathname;
-    }
-
-    this.keycloakService.logout(redirectUri);
   }
 
 }

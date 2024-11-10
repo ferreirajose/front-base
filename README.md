@@ -326,3 +326,227 @@ A depreciação de `toPromise()` ocorreu para:
 Esses métodos ajudam a criar código mais claro e gerenciável, especialmente em casos onde os `Observables` representam fluxos contínuos de dados.
 
 ---
+ 
+## Type, Interface e Class no TypeScript
+
+No TypeScript, `type`, `interface` e `class` são três formas principais de definir a estrutura de objetos, tipos personalizados e classes. Cada uma delas possui suas vantagens e limitações.
+
+### 1. O que é `type`?
+
+No contexto do TypeScript, `type` permite criar tipos personalizados que podem ser usados para definir a estrutura de um objeto, unir tipos (uniões) ou criar alias para tipos complexos. Ele é versátil e pode combinar tipos primitivos, objetos e tipos compostos.
+
+**Exemplo de uso de `type`:**
+
+```typescript
+type ProductID = number | string;
+type Product = {
+    id: ProductID;
+    name: string;
+    price: number;
+};
+```
+
+### 2. O que é `interface`?
+
+`interface` é usada para definir a estrutura de um objeto. No TypeScript, interfaces permitem estender outras interfaces, criando tipos complexos com herança. Geralmente, `interface` é usada para descrever a forma de objetos que são esperados em funções, classes, ou módulos.
+
+**Exemplo de uso de `interface`:**
+
+```typescript
+interface Product {
+    id: number;
+    name: string;
+    price: number;
+}
+```
+
+### 3. O que é `class`?
+
+`class` no TypeScript permite a criação de objetos com propriedades e métodos, utilizando conceitos de orientação a objetos como herança, encapsulamento e polimorfismo. Classes podem implementar interfaces e também definir modificadores de acesso como `public`, `protected` e `private`.
+
+**Exemplo de uso de `class`:**
+
+```typescript
+class Product {
+    id: number;
+    name: string;
+    price: number;
+
+    constructor(id: number, name: string, price: number) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+
+    getPriceWithTax(taxRate: number): number {
+        return this.price * (1 + taxRate);
+    }
+}
+```
+
+**Exemplo de uso de `class`:**
+
+```typescript
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+// Definindo a classe Product como um modelo de dados
+class Product {
+    constructor(
+        public id: number,
+        public name: string,
+        public price: number
+    ) {}
+}
+
+// Definindo a classe ProductService que usa o método getProducts
+class ProductService {
+    constructor(private http: HttpClient) {}
+
+    async getProducts(): Promise<Product[]> {
+        return firstValueFrom(
+            this.http.get<{ data: Product[] }>('assets/data/products.json').pipe(
+                map(res => res.data.map(product => new Product(product.id, product.name, product.price)))
+            )
+        );
+    }
+}
+
+```
+
+**Exemplo de uso de `interface ou type`:**
+
+```typescript
+import { firstValueFrom } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Product } from './product-type';
+
+@Injectable()
+export class ProductService {
+
+    constructor(private http: HttpClient) { }
+
+    async getProducts(): Promise<Product[]> {
+        return firstValueFrom(
+            this.http.get<{ data: Product[] }>('assets/data/products.json').pipe(
+                map(res => res.data)
+            )
+        );
+    }
+}
+
+```
+
+---
+
+### 4. Diferença entre `type`, `interface` e `class`
+
+| Aspecto               | Type                                       | Interface                                      | Class                                           |
+|-----------------------|--------------------------------------------|------------------------------------------------|-------------------------------------------------|
+| **Extensibilidade**   | Permite combinação com interseção (`&`)    | Permite extensão com `extends`                 | Permite herança com `extends`                   |
+| **Compatibilidade**   | Suportada para objetos e tipos primitivos  | Suportada para definir objetos                 | Usada para definir estruturas orientadas a objetos com métodos e propriedades |
+| **Suporte para União**| Permite união com `|`                      | Não permite unir tipos                         | Não aplicável                                   |
+| **Declaração Múltipla** | Não aceita declarações adicionais        | Aceita declarações adicionais (merging)        | Não aplicável                                   |
+| **Instanciável**      | Não instanciável                           | Não instanciável                               | Instanciável com `new`                          |
+| **Modificadores de Acesso** | Não aplicável                        | Não aplicável                                  | Suporta `public`, `protected`, `private`        |
+
+---
+
+### 5. Vantagens de Interface
+
+- **Extensão Múltipla**: Interfaces podem ser combinadas (declaration merging), o que permite que o código seja mais modular.
+- **Legibilidade**: Interfaces geralmente melhoram a clareza do código em grandes projetos.
+
+### 6. Vantagens de Type
+
+- **Flexibilidade**: `type` permite a criação de uniões, interseções e alias para tipos complexos.
+- **Uso de Tipos Primitivos**: Pode ser utilizado para definir alias de tipos primitivos, além de objetos e tipos complexos.
+
+### 7. Vantagens de Class
+
+- **Orientação a Objetos**: Suporta encapsulamento, herança e polimorfismo, permitindo um design orientado a objetos mais robusto.
+- **Instanciável**: Diferente de `type` e `interface`, uma `class` pode ser instanciada, possibilitando a criação de objetos concretos com estados e métodos.
+
+### Desvantagens
+
+- **interface**: Não permite unir tipos usando `|` (uniões), o que pode limitar sua flexibilidade em alguns casos.
+- **type**: Não suporta declaration merging, tornando-o menos adaptável em sistemas de tipo onde extensibilidade modular é necessária.
+- **class**: Pode adicionar complexidade desnecessária em projetos onde uma estrutura simples de dados é suficiente.
+
+---
+
+
+## 1. O que é Environment?
+
+`Environment` (ou Ambiente) refere-se à configuração específica de uma aplicação que varia de acordo com o ambiente em que ela está sendo executada. Em desenvolvimento de software, ambientes comuns incluem:
+
+- **Desenvolvimento (development)**: Usado para desenvolvimento e testes locais.
+- **Homologação (staging)**: Um ambiente de teste controlado que simula o ambiente de produção.
+- **Produção (production)**: O ambiente final onde os usuários acessam o aplicativo.
+
+Em Angular, o sistema de `environment` permite a configuração de variáveis e endpoints diferentes para cada um desses ambientes. Isso possibilita que o código do aplicativo se adapte dinamicamente, sem a necessidade de modificações manuais em cada transição de ambiente.
+
+---
+
+## 2. Como o Angular utiliza Environment?
+
+No Angular, as configurações de `environment` são definidas em arquivos específicos, como `environment.ts` para desenvolvimento e `environment.prod.ts` para produção. Esses arquivos são automaticamente selecionados durante o processo de build do Angular, permitindo que as configurações corretas sejam aplicadas para o ambiente certo.
+
+### Exemplo de uso no Angular
+
+```typescript
+// environment.ts (Desenvolvimento)
+export const environment = {
+  production: false,
+  keycloak: {
+    url: 'http://localhost:8080/auth',
+    realm: 'my-realm',
+    clientId: 'my-client-id'
+  },
+  apiUrl: 'http://localhost:3000/api'
+};
+
+// environment.prod.ts (Produção)
+export const environment = {
+  production: true,
+  keycloak: {
+    url: '${KEYCLOAK_URL}',
+    realm: '${KEYCLOAK_REALM}',
+    clientId: '${KEYCLOAK_CLIENT_ID}'
+  },
+  apiUrl: '${API_URL}'
+};
+```
+
+No exemplo acima, o Angular seleciona automaticamente o arquivo correto de acordo com o ambiente. Em um build de produção (`ng build --prod`), o Angular usa `environment.prod.ts`. Para o ambiente de desenvolvimento, ele usa `environment.ts`.
+
+### Uso das Variáveis de Environment no Código Angular
+
+Para acessar as variáveis de ambiente no código Angular, você pode importar o arquivo `environment` e usar as variáveis diretamente. Isso facilita a gestão de configurações sensíveis, como URLs de APIs e autenticação.
+
+```typescript
+import { environment } from '../environments/environment';
+
+export class AuthService {
+  private authUrl = environment.keycloak.url;
+  private apiUrl = environment.apiUrl;
+
+  constructor() {
+    console.log(`Usando API em: ${this.apiUrl}`);
+  }
+}
+```
+
+### Variáveis Dinâmicas em Produção
+
+Em ambientes de produção, o uso de variáveis dinâmicas, como `${KEYCLOAK_URL}`, `${KEYCLOAK_REALM}`, e `${API_URL}`, permite que essas configurações sejam fornecidas em tempo de execução, em vez de estarem codificadas no aplicativo. Isso é útil em cenários de DevOps, onde as variáveis de ambiente podem ser substituídas com base no sistema de deploy.
+
+#### Exemplo em um ambiente de contêiner ou CI/CD
+
+As variáveis `${KEYCLOAK_URL}`, `${KEYCLOAK_REALM}`, `${KEYCLOAK_CLIENT_ID}`, e `${API_URL}` podem ser substituídas no momento de deploy para adaptar o aplicativo ao ambiente de produção. Essa abordagem é vantajosa pois separa as configurações sensíveis e específicas do ambiente do código principal da aplicação, permitindo um deploy mais seguro e flexível.
+
+---
+
+Em resumo, o sistema de `environment` no Angular é uma maneira eficaz de separar as configurações de ambiente e adaptar o comportamento do aplicativo sem mudanças manuais de código, suportando diferentes ambientes e integrando-se facilmente em fluxos de CI/CD.

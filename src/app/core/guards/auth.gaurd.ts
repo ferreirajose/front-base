@@ -1,42 +1,29 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  Router,
-  RouterStateSnapshot
-} from '@angular/router';
-import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { UserService } from '@core/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard extends KeycloakAuthGuard {
-  constructor(
-    override readonly router: Router,
-    protected readonly keycloak: KeycloakService
-  ) {
-    super(router, keycloak);
-  }
+export class AuthGuard implements CanActivate {
 
-  public async isAccessAllowed(
+  constructor(private userService: UserService, private router: Router) {}
+
+  async canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ) {
-    // Force the user to log in if currently unauthenticated.
-    if (!this.authenticated) {
-      await this.keycloak.login({
-        redirectUri: window.location.origin + state.url
-      });
-    }
+  ): Promise<boolean> {
+    const expectedRole = route.data['role'];
+    const isLoggedIn = await this.userService.isLoggedIn();
+    const userRole = await this.userService.getUserRole();
 
-    // Get the roles required from the route.
-    const requiredRoles = route.data['roles'];
-
-    // Allow the user to proceed if no additional roles are required to access the route.
-    if (!Array.isArray(requiredRoles) || requiredRoles.length === 0) {
+    // Verifica se o usuário está autenticado e tem o papel necessário
+    if (isLoggedIn && userRole && userRole === expectedRole) {
       return true;
+    } else {
+      // Redireciona para uma página de acesso negado caso o usuário não tenha permissão
+      this.router.navigate(['/access-denied']);
+      return false;
     }
-
-    // Allow the user to proceed if all the required roles are present.
-    return requiredRoles.every((role) => this.roles.includes(role));
   }
 }

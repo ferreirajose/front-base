@@ -1,37 +1,30 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Product } from './product-type';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class ProductService {
 
     constructor(private http: HttpClient) { }
 
-    getProductsSmall() {
-        return this.http.get<any>('assets/data/products-small.json')
-            .toPromise()
-            .then(res => res.data as Product[])
-            .then(data => data);
+    async getProductsSmall() {
+        const response = await firstValueFrom(this.http.get<any>('assets/data/products-small.json'));
+        return response.data as Product[];
     }
 
-    getProducts() {
-        return this.http.get<any>('assets/data/products.json')
-            .toPromise()
-            .then(res => res.data as Product[])
-            .then(data => data);
+    async getProducts() {
+        const response = await firstValueFrom(this.http.get<any>('assets/data/products.json'));
+        return response.data as Product[];
     }
 
-    getProductsMixed() {
-        return this.http.get<any>('assets/data/products-mixed.json')
-            .toPromise()
-            .then(res => res.data as Product[])
-            .then(data => data);
+    async getProductsMixed() {
+        const response = await firstValueFrom(this.http.get<any>('assets/data/products-mixed.json'));
+        return response.data as Product[];
     }
 
-    getProductsWithOrdersSmall() {
-        return this.http.get<any>('assets/data/products-orders-small.json')
-            .toPromise()
-            .then(res => res.data as Product[])
-            .then(data => data);
+    async getProductsWithOrdersSmall() {
+        const response = await firstValueFrom(this.http.get<any>('assets/data/products-orders-small.json'));
+        return response.data as Product[];
     }
 }

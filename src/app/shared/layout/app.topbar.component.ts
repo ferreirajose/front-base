@@ -12,7 +12,7 @@ import { KeycloakService } from 'keycloak-angular';
 export class AppTopBarComponent {
 
     items!: MenuItem[];
-
+    hide = true;
     @ViewChild('menubutton') menuButton!: ElementRef;
 
     @ViewChild('topbarmenubutton') topbarMenuButton!: ElementRef;
@@ -43,5 +43,9 @@ export class AppTopBarComponent {
       }
 
       this.keycloakService.logout(redirectUri);
+    }
+
+    show() {
+      this.hide = !this.hide;
     }
 }
