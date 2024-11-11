@@ -39,12 +39,12 @@ registerLocaleData(localePt);
       provide: LOCALE_ID,
       useValue: 'pt_BR',
     },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initializer,
-      multi: true,
-      deps: [KeycloakService]
-    },
+    // {
+    //   provide: APP_INITIALIZER,
+    //   useFactory: initializer,
+    //   multi: true,
+    //   deps: [KeycloakService]
+    // },
   ],
   bootstrap: [AppComponent]
 })

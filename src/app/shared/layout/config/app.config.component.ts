@@ -7,6 +7,7 @@ import { MenuService } from '../app.menu.service';
     templateUrl: './app.config.component.html',
     styleUrls: ['./app.config.component.scss']
 })
+// as configurações foram transferidas para o componente de AccessibilityComponent
 export class AppConfigComponent {
     @Input() minimal: boolean = false;
 

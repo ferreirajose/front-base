@@ -3,7 +3,7 @@
     height: 5rem;
     z-index: 997;
     left: 0;
-    top: 0;
+    top: 56px; // top: 0;
     width: 100%;
     padding: 0 2rem;
     background-color: var(--surface-card);
@@ -89,7 +89,7 @@
 @media (max-width: 991px) {
     .layout-topbar {
         justify-content: space-between;
-
+        top: 66px;
         .layout-topbar-logo {
             width: auto;
             order: 2;

@@ -28,7 +28,7 @@ export class LayoutService {
         inputStyle: 'outlined',
         menuMode: 'static',
         colorScheme: 'light',
-        theme: 'lara-light-indigo',
+        theme: 'bootstrap4-light-blue', // definindo folha de estilo padrão
         scale: 14,
     };
 

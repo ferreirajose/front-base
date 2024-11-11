@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, HostListener} from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { LayoutService } from "./service/app.layout.service";
 import { Router } from '@angular/router';
@@ -13,6 +13,7 @@ export class AppTopBarComponent {
 
     items!: MenuItem[];
     hide = true;
+    isMobileView: boolean = window.innerWidth <= 991;
     @ViewChild('menubutton') menuButton!: ElementRef;
 
     @ViewChild('topbarmenubutton') topbarMenuButton!: ElementRef;
@@ -21,6 +22,13 @@ export class AppTopBarComponent {
 
     @ViewChild('profile', { static: false }) profileRef!: ElementRef;
     @ViewChild('menu', { static: false }) menuRef!: ElementRef;
+
+
+
+    @HostListener('window:resize', ['$event'])
+    onResize(event: Event) {
+      this.isMobileView = window.innerWidth <= 991;
+    }
 
     constructor(public layoutService: LayoutService,
       public router: Router,

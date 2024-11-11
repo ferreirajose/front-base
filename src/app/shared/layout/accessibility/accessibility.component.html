@@ -1,0 +1,25 @@
+ <!-- Barra de Acessibilidade -->
+ <nav class="navbar navbar-accessibility">
+  <div class="navbar-nav me-auto">
+      <a class="nav-link" href="#">Ir para Menu1 [M]</a>
+      <a class="nav-link" href="#">Conteúdo [1]</a>
+      <a class="nav-link" href="#">Acessibilidade</a>
+  </div>
+  <div class="navbar-nav ms-auto font-control-icons">
+    <span class="icon icon-inc" (click)="incrementScale ()" role="button" tabindex="0" aria-label="Aumentar fonte" aria-pressed="false"></span>
+    <span class="icon icon-dec" (click)="decrementScale()"role="button" tabindex="0" aria-label="Diminuir fonte" aria-pressed="false"></span>
+    <span class="icon icon-reset" (click)="resetScale()" role="button" tabindex="0" aria-label="Restaurar fonte padrão" aria-pressed="false"></span>
+    <span class="icon dark-mode" role="button" tabindex="0" aria-label="Ativar/desativar modo escuro" aria-pressed="false">
+      <input type="checkbox" [(ngModel)]="isDarkTheme" (change)="toggleTheme()"  class="checkbox" id="checkbox">
+    </span>
+     <!-- <div>
+      <input type="checkbox" [(ngModel)]="isDarkTheme" (change)="toggleTheme()"  class="checkbox" id="checkbox">
+            <label for="checkbox" class="checkbox-label">
+            <i class="pi pi-moon"></i>
+            <i class="pi pi-sun"></i>
+            <span class="ball"></span>
+            </label>
+     </div> -->
+</div>
+
+</nav>

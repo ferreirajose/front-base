@@ -1,0 +1,60 @@
+<!-- <div class="dropdown-container">
+  <div class="notifications dropdown dd-trigger" (click)="toggleDropdown()">
+    <i class="pi pi-bell text-3xl" pBadge [value]="notificationService.getNotifications().length || 0"></i>
+
+  </div>
+  <div class="dropdown-menu animated" [class.is-open]="isDropdownOpen">
+    <div class="dropdown-header">
+      <span class="triangle"></span>
+      <span class="heading">Notifications</span>
+        <span class="count">{{ notificationService.newNotifications.length }}</span> 
+    </div>
+    <div class="dropdown-body">
+      <div *ngFor="let notification of notificationService.getNotifications()" class="notification new">
+        <div class="notification-image-wrapper">
+          <div class="notification-image">
+            <img [src]="notification.user.imageUrl" alt="" width="32">
+          </div>
+        </div>
+        <div class="notification-text">
+          <span class="highlight">{{ notification.user.name }}</span> {{ notification.action }} {{ notification.target }}
+        </div>
+      </div>
+      <div *ngFor="let notification of notificationService.getNotifications()" class="notification">
+        <div class="notification-image-wrapper">
+          <div class="notification-image">
+            <img [src]="notification.user.imageUrl" alt="" width="32">
+          </div>
+        </div>
+        <div class="notification-text">
+          <span class="highlight">{{ notification.user.name }}</span> {{ notification.action }} {{ notification.target }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+<div class="dropdown-container">
+  <div class="notifications dropdown dd-trigger" (click)="toggleDropdown()">
+    <i class="pi pi-bell text-3xl" pBadge [value]="notifications.length || 0"></i>
+  </div>
+  <div class="dropdown-menu animated" [class.is-open]="isDropdownOpen">
+    <div class="dropdown-header">
+      <span class="triangle"></span>
+      <span class="heading">Notifications</span>
+    </div>
+    <div class="dropdown-body">
+      <div *ngFor="let notification of notifications" class="notification new">
+        <div class="notification-image-wrapper">
+          <div class="notification-image">
+            <img [src]="notification.user.imageUrl" alt="" width="32">
+          </div>
+        </div>
+        <div class="notification-text">
+          <span class="highlight">{{ notification.user.name }}</span> {{ notification.action }} {{ notification.target }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,130 @@
+
+/* Styles for Accessibility Bar */
+.navbar-accessibility {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #EEE;
+  z-index: 10; /* Above the topbar */
+  padding: 0.5rem 2rem; /* Adds lateral spacing */
+  display: flex;
+  justify-content: space-between; /* Space between left and right sections */
+  align-items: center; /* Centers items vertically */
+  min-height: 56px;
+}
+
+.navbar-accessibility .navbar-nav.me-auto {
+  display: flex;
+  justify-content: flex-start; /* Aligns the block to the left */
+}
+
+.navbar-accessibility .navbar-nav.ms-auto {
+  display: flex;
+  justify-content: flex-end; /* Aligns the block to the right */
+}
+
+.navbar-accessibility .nav-link {
+  color: #333;
+  margin-right: 1rem;
+}
+
+
+/* Icon container styles */
+.font-control-icons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Base styles for all icons */
+.icon {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+.icon-inc {
+  background-image: url('../../../../assets/icons/icon-inc.png');
+}
+
+.icon-dec {
+  background-image: url('../../../../assets/icons/icon-dec.png');
+}
+
+.icon-reset {
+  background-image: url('../../../../assets/icons/icon-reset.png');
+}
+
+.dark-mode {
+  background-image: url('../../../../assets/icons/icon-dark-mode.png');
+}
+
+/* custom checkbox */
+
+.checkbox {
+  opacity: 0;
+  position: absolute;
+  cursor: pointer;
+}
+
+.checkbox-label {
+  background-color: #111;
+  width: 50px;
+  height: 26px;
+  border-radius: 50px;
+  position: relative;
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pi-moon {color: #f1c40f;}
+
+.pi-sun {color: #f39c12;}
+
+.checkbox-label .ball {
+  background-color: #fff;
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  border-radius: 50%;
+  transition: transform 0.2s linear;
+}
+
+.checkbox:checked + .checkbox-label .ball {
+  transform: translateX(24px);
+}
+
+
+/* Media query for screens up to 991px */
+@media (max-width: 991px) {
+  .navbar-accessibility {
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 1rem 2rem;
+      text-align: center;
+
+  }
+
+  .navbar-accessibility .navbar-nav.me-auto,
+  .navbar-accessibility .navbar-nav.ms-auto {
+      justify-content: center;
+      width: 100%;
+      margin-bottom: 0.5rem;
+  }
+
+  .font-control-icons i,
+  .dark-mode-icon {
+      margin-left: 0.5rem;
+  }
+}
+
+
