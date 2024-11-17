@@ -3,7 +3,11 @@ import { RouterModule } from '@angular/router';
 import { GerenciarPublicacaoComponent } from './gerenciar-publicacao.component';
 
 const routes = [
-  { path: '', component: GerenciarPublicacaoComponent }
+  {
+    path: '',
+    component: GerenciarPublicacaoComponent
+
+  }
 ]
 @NgModule({
 	imports: [RouterModule.forChild(routes)],

@@ -5,8 +5,7 @@ import { CalendarComponent } from './calendar.component';
 const routes: Routes = [
   {
     path: '',
-    component: CalendarComponent,
-    canActivate: []
+    component: CalendarComponent
   }
 ];
 

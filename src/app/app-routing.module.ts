@@ -8,32 +8,39 @@ const routes: Routes = [
   {
     path: '',
     component: AppLayoutComponent,
+    data: { breadCrum: 'Dashboard' },
     children: [
       {
-        path: 'dashabord',
-        loadChildren: () =>import('./features/dashabord/dashabord.module').then((m) => m.DashabordModule),
-        canActivate: []
+        path: 'dashboard',
+        loadChildren: () =>
+          import('./features/dashabord/dashabord.module').then((m) => m.DashabordModule),
       },
       {
         path: 'crud',
-        loadChildren: () => import('./features/crud/crud.module').then(m => m.CrudModule),
-        canActivate: [],
-        data: { role: 'ADMIN' } // Apenas usuários com a ROLE "ADMIN" podem acessar
+        loadChildren: () =>
+          import('./features/crud/crud.module').then((m) => m.CrudModule),
+        data: { breadCrum: 'CRUD', role: 'ADMIN' },
       },
       {
         path: 'gerenciar-publicacao',
-        loadChildren: () => import('./features/gerenciar-publicacao/gerenciar-publicacao.module').then(m => m.GerenciarPublicacaoModule),
-        canActivate: [],
-        data: {role: 'GERENCIAR_PUBLICACAO_SALVAR'} // Apenas usuários com a ROLE "ADMIN" podem acessar
+        loadChildren: () =>
+          import('./features/gerenciar-publicacao/gerenciar-publicacao.module').then(
+            (m) => m.GerenciarPublicacaoModule
+          ),
+        data: { breadCrum: 'Gerenciar Publicação', role: 'GERENCIAR_PUBLICACAO_SALVAR' },
       },
-      { path: 'calendar', loadChildren: () => import('./features/calendar/calendar.module').then(m => m.CalendarModule) },
-      { path: '', redirectTo: 'dashabord', pathMatch: 'full' },
-
-    ]
+      {
+        path: 'calendar',
+        loadChildren: () =>
+          import('./features/calendar/calendar.module').then((m) => m.CalendarModule),
+        data: { breadCrum: 'Calendar' },
+      },
+      { path: 'notfound', component: NotfoundComponent, data: { breadCrum: 'Not Found' } },
+      { path: 'access-denied', component: NotfoundComponent, data: { breadCrum: 'Access Denied' } },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, // Redireciona a raiz para /dashboard
+    ],
   },
-  { path: 'notfound', component: NotfoundComponent },
-  { path: 'access-denied', component: NotfoundComponent },
-  { path: '**', redirectTo: '/notfound' },
+  { path: '**', redirectTo: '/notfound' }, // Rota coringa para rotas inexistentes
 ];
 
 

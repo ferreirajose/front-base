@@ -3,7 +3,9 @@ import { RouterModule } from '@angular/router';
 import { CrudComponent } from './crud.component';
 
 const routes = [
-  { path: '', component: CrudComponent }
+  {
+    path: '', component: CrudComponent
+  }
 ]
 @NgModule({
 	imports: [RouterModule.forChild(routes)],

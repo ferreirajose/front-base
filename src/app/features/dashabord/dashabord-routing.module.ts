@@ -5,8 +5,7 @@ import { DashabordComponent } from './dashabord.component';
 const routes: Routes = [
   {
     path: '',
-    component: DashabordComponent,
-    canActivate: []
+    component: DashabordComponent
   }
 ];
 

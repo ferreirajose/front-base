@@ -12,6 +12,7 @@ import { SharedModule } from 'primeng/api';
 import { PrimengModule } from '@shared/primeng.module';
 import { AccessibilityComponent } from './accessibility/accessibility.component';
 import { NotificationComponent } from './notification/notification.component';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import { NotificationComponent } from './notification/notification.component';
         AppSidebarComponent,
         AppLayoutComponent,
         AccessibilityComponent,
-        NotificationComponent
+        NotificationComponent,
+        BreadcrumbComponent
     ],
     imports: [
         BrowserModule,
